@@ -1,0 +1,158 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <title>Masterchef</title>
+
+    <environment include="Development">
+        @*<link type="text/css" rel="stylesheet" href="~/lib/materialize/dist/css/materialize.css" media="screen,projection" />
+            <link type="text/css" rel="stylesheet" href="~/css/custom.css" media="screen,projection" asp-append-version="true" />*@
+
+        <link type="text/css" rel="stylesheet" href="~/css/site.min.css" media="screen,projection" asp-append-version="true" />
+    </environment>
+    <environment exclude="Development">
+        <link type="text/css" rel="stylesheet" href="~/css/site.min.css" media="screen,projection" asp-append-version="true" />
+    </environment>
+</head>
+<body>
+    <nav class="nav-border red">
+        <div class="nav-wrapper">
+            <div class="container">
+                <div class="row">
+                    <div class="col s3">
+                        <a href="/" class="brand-logo">Masterchef</a>
+                        <!-- <a href="#" data-activates="mobile-menu" class="button-collapse"><i class="material-icons">menu</i></a> -->
+                    </div>
+
+                    <div class="col s9 hide-on-med-and-down right">
+                        <form action="/receitas/busca" method="get">
+                            <div class="input-field">
+                                <input id="termo" name="termo" type="search" placeholder="Pesquisar" required>
+                                <label class="label-icon" for="search"><i class="material-icons icon-search">search</i></label>
+                                <i class="material-icons closed">close</i>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- <div class="col s2 hide-on-med-and-down">
+                        <ul class="right">
+                            <li><a href="#"><i class="material-icons">power_settings_new</i></a>
+                            </li>
+                        </ul>
+                    </div> -->
+                </div>
+
+                <!-- <ul class="side-nav" id="mobile-menu">
+                    <li><a href="#"><i class="material-icons">power_settings_new</i></a>
+                    </li>
+                </ul> -->
+
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            @RenderBody()
+            <div class="fixed-action-btn">
+                <a class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons">dehaze</i></a>
+                <ul>
+                    <!-- <li><a class="btn-floating blue"><i class="material-icons">restaurant</i></a></li>
+                    <li><a class="btn-floating pink"><i class="material-icons">restaurant_menu</i></a></li>
+                    <li><a class="btn-floating yellow"><i class="material-icons">room_service</i></a></li> -->
+                    <li><a href="/receitas/favoritos" class="btn-floating red tooltipped" data-position="left" data-delay="50" data-tooltip="Ver favoritos"><i class="material-icons">favorite</i></a></li>
+                    <li>
+                        <a href="#modalAddRecipes" class="btn-floating green tooltipped modal-trigger" data-position="left" data-delay="50"
+                           data-tooltip="Adicionar Receita"><i class="material-icons">add</i></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </main>
+
+    <!-- Modal Structure -->
+    <div id="modalAddRecipes" class="modal modal-fixed-footer">
+        <div class="modal-content">
+            <h4>Cadastrar Receita</h4>
+            <p>Preencha os dados abaixo:</p>
+            <div class="row">
+                <form id="formReceita" enctype="multipart/form-data" class="col s12" novalidate="novalidate">
+                    <div class="row">
+                        <div class="input-field col s6">
+                            <input id="titulo" type="text" name="titulo" required>
+                            <label for="titulo">Titulo</label>
+                        </div>
+                        <div class="input-field col s6">
+                            <input id="descricao" type="text" name="descricao" required>
+                            <label for="descricao">Descrição</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s6">
+                            <select id="categoriaId" name="categoriaId" required>
+                                <option value="" disabled selected>Selecione a categoria</option>
+                                <option value="1">Lanches</option>
+                            </select>
+                            <label for="categoriaId">Categoria</label>
+                        </div>
+                        @*<div class="input-chips chips col s6">
+                                <input id="tags" type="text" name="tags">
+                            </div>*@
+                        <div class="input-field col s6">
+                            <input id="tags" type="text" name="tags">
+                            <label for="tags">Tags</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="file-field input-field col s6">
+                            <div class="btn">
+                                <span>Foto</span>
+                                <input id="foto" type="file" name="foto" multiple required>
+                            </div>
+                            <div class="file-path-wrapper">
+                                <input class="file-path validate" type="text" placeholder="Envie um foto da receita" required>
+                            </div>
+                        </div>
+                        <div class="input-field col s6">
+                            <input id="ingredientes" type="text" class="validate" name="ingredientes" required>
+                            <label for="ingredientes">Ingredientes</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s6">
+                            <input id="tempopreparo" type="number" class="validate" name="tempopreparo" required>
+                            <label for="tempopreparo">Tempo de Preparo (min)</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <textarea id="preparo" class="materialize-textarea" name="preparo"></textarea>
+                            <label for="preparo">Modo de Preparo</label>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <a class="modal-action modal-close waves-effect waves-green btn-flat ">Cancelar</a>
+            <a id="salvar-receita" class="modal-action waves-effect waves-green btn-flat">Salvar</a>
+        </div>
+    </div>
+
+    <environment include="Development">
+        <script type="text/javascript" src="~/lib/jquery/dist/jquery.js"></script>
+        <script type="text/javascript" src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+        <script type="text/javascript" src="~/lib/materialize/dist/js/materialize.js"></script>
+        <script type="text/javascript" src="~/js/scripts.js" asp-append-version="true"></script>
+    </environment>
+    <environment exclude="Development">
+        <script src="~/js/site.min.js" asp-append-version="true"></script>
+    </environment>
+
+    @RenderSection("Scripts", required: false)
+</body>
+</html>
