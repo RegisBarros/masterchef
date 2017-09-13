@@ -74,74 +74,7 @@
         </div>
     </main>
 
-    <!-- Modal Structure -->
-    <div id="modalAddRecipes" class="modal modal-fixed-footer">
-        <div class="modal-content">
-            <h4>Cadastrar Receita</h4>
-            <p>Preencha os dados abaixo:</p>
-            <div class="row">
-                <form id="formReceita" enctype="multipart/form-data" class="col s12" novalidate="novalidate">
-                    <div class="row">
-                        <div class="input-field col s6">
-                            <input id="titulo" type="text" name="titulo" required>
-                            <label for="titulo">Titulo</label>
-                        </div>
-                        <div class="input-field col s6">
-                            <input id="descricao" type="text" name="descricao" required>
-                            <label for="descricao">Descrição</label>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="input-field col s6">
-                            <select id="categoriaId" name="categoriaId" required>
-                                <option value="" disabled selected>Selecione a categoria</option>
-                                <option value="1">Lanches</option>
-                            </select>
-                            <label for="categoriaId">Categoria</label>
-                        </div>
-                        @*<div class="input-chips chips col s6">
-                                <input id="tags" type="text" name="tags">
-                            </div>*@
-                        <div class="input-field col s6">
-                            <input id="tags" type="text" name="tags">
-                            <label for="tags">Tags</label>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="file-field input-field col s6">
-                            <div class="btn">
-                                <span>Foto</span>
-                                <input id="foto" type="file" name="foto" multiple required>
-                            </div>
-                            <div class="file-path-wrapper">
-                                <input class="file-path validate" type="text" placeholder="Envie um foto da receita" required>
-                            </div>
-                        </div>
-                        <div class="input-field col s6">
-                            <input id="ingredientes" type="text" class="validate" name="ingredientes" required>
-                            <label for="ingredientes">Ingredientes</label>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="input-field col s6">
-                            <input id="tempopreparo" type="number" class="validate" name="tempopreparo" required>
-                            <label for="tempopreparo">Tempo de Preparo (min)</label>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="input-field col s12">
-                            <textarea id="preparo" class="materialize-textarea" name="preparo"></textarea>
-                            <label for="preparo">Modo de Preparo</label>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-        <div class="modal-footer">
-            <a class="modal-action modal-close waves-effect waves-green btn-flat ">Cancelar</a>
-            <a id="salvar-receita" class="modal-action waves-effect waves-green btn-flat">Salvar</a>
-        </div>
-    </div>
+    @await Component.InvokeAsync("ModalCadastroReceita")
 
     <environment include="Development">
         <script type="text/javascript" src="~/lib/jquery/dist/jquery.js"></script>

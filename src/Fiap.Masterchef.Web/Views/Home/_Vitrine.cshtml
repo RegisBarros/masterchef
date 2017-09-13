@@ -1,147 +1,48 @@
-﻿<div class="section">
-    <h5>Lanches</h5>
-    <div class="divider"></div>
-    <div class="row">
+﻿@if (Model != null)
+{
+    foreach (var vitrine in Model)
+    {
+        <div class="section">
+            <h5>@vitrine.Categoria</h5>
+            <div class="divider"></div>
+            <div class="row">
+                @foreach (var receita in vitrine.Receitas)
+                {
+                    <div class="col s12 m6 l3">
+                        <div class="card hoverable">
+                            <div class="card-image">
+                                <img src="~/images/@receita.Foto">
+                                @{
+                                    string icon = "favorite_border";
+                                    string iconCss = "add-favorito";
 
-        <div class="col s12 m6 l3">
-            <div class="card hoverable">
-                <div class="card-image">
-                    <img src="~/images/hamburguer.jpg">
-                    <a class="btn-floating halfway-fab waves-effect waves-light red">
-                        <i class="material-icons">favorite</i>
-                    </a>
-                </div>
+                                    if (receita.Favorito)
+                                    {
+                                        icon = "favorite";
+                                        iconCss = "remove-favorito";
+                                    }
+                                }
 
-                <div class="card-content">
-                    <span class="card-title">Hamburguer Perfeito</span>
-                    <p>Como fazer um hamburguer perfeito</p>
-                    <br>
-                    <div class="valign-wrapper">
-                        <i class="material-icons">access_time</i>&nbsp;&nbsp;<span>20 min</span>
+                                <a class="btn-floating halfway-fab waves-effect waves-light red @iconCss">
+                                    <i class="material-icons" data-receita="@receita.ReceitaId">@icon </i>
+                                </a>
+                            </div>
+
+                            <div class="card-content">
+                                <span class="card-title">@receita.Titulo</span>
+                                <p>@receita.Descricao</p>
+                                <br>
+                                <div class="valign-wrapper">
+                                    <i class="material-icons">access_time</i>&nbsp;&nbsp;<span>@receita.TempoPreparo min</span>
+                                </div>
+                            </div>
+                            <div class="card-action">
+                                <a href="#">Ver Receita</a>
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div class="card-action">
-                    <a href="#">Ver Receita</a>
-                </div>
+                                    }
             </div>
         </div>
-        <div class="col s12 m6 l3">
-            <div class="card hoverable">
-                <div class="card-image">
-                    <img src="~/images/hamburguer.jpg">
-                    <a class="btn-floating halfway-fab waves-effect waves-light red">
-                        <i class="material-icons">favorite</i>
-                    </a>
-                </div>
-
-                <div class="card-content">
-                    <span class="card-title">Hamburguer Perfeito</span>
-                    <p>Como fazer um hamburguer perfeito</p>
-                    <br>
-                    <div class="valign-wrapper">
-                        <i class="material-icons">access_time</i>&nbsp;&nbsp;<span>20 min</span>
-                    </div>
-                </div>
-                <div class="card-action">
-                    <a href="#">Ver Receita</a>
-                </div>
-            </div>
-        </div>
-        <div class="col s12 m6 l3">
-            <div class="card hoverable">
-                <div class="card-image">
-                    <img src="~/images/hamburguer.jpg">
-                    <a class="btn-floating halfway-fab waves-effect waves-light red">
-                        <i class="material-icons">favorite</i>
-                    </a>
-                </div>
-
-                <div class="card-content">
-                    <span class="card-title">Hamburguer Perfeito</span>
-                    <p>Como fazer um hamburguer perfeito</p>
-                    <br>
-                    <div class="valign-wrapper">
-                        <i class="material-icons">access_time</i>&nbsp;&nbsp;<span>20 min</span>
-                    </div>
-                </div>
-                <div class="card-action">
-                    <a href="#">Ver Receita</a>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="section">
-    <h5>Lanches</h5>
-    <div class="divider"></div>
-    <div class="row">
-
-        <div class="col s12 m6 l3">
-            <div class="card hoverable">
-                <div class="card-image">
-                    <img src="~/images/hamburguer.jpg">
-                    <a class="btn-floating halfway-fab waves-effect waves-light red">
-                        <i class="material-icons">favorite</i>
-                    </a>
-                </div>
-
-                <div class="card-content">
-                    <span class="card-title">Hamburguer Perfeito</span>
-                    <p>Como fazer um hamburguer perfeito</p>
-                    <br>
-                    <div class="valign-wrapper">
-                        <i class="material-icons">access_time</i>&nbsp;&nbsp;<span>20 min</span>
-                    </div>
-                </div>
-                <div class="card-action">
-                    <a href="#">Ver Receita</a>
-                </div>
-            </div>
-        </div>
-        <div class="col s12 m6 l3">
-            <div class="card hoverable">
-                <div class="card-image">
-                    <img src="~/images/hamburguer.jpg">
-                    <a class="btn-floating halfway-fab waves-effect waves-light red">
-                        <i class="material-icons">favorite</i>
-                    </a>
-                </div>
-
-                <div class="card-content">
-                    <span class="card-title">Hamburguer Perfeito</span>
-                    <p>Como fazer um hamburguer perfeito</p>
-                    <br>
-                    <div class="valign-wrapper">
-                        <i class="material-icons">access_time</i>&nbsp;&nbsp;<span>20 min</span>
-                    </div>
-                </div>
-                <div class="card-action">
-                    <a href="#">Ver Receita</a>
-                </div>
-            </div>
-        </div>
-        <div class="col s12 m6 l3">
-            <div class="card hoverable">
-                <div class="card-image">
-                    <img src="~/images/hamburguer.jpg">
-                    <a class="btn-floating halfway-fab waves-effect waves-light red">
-                        <i class="material-icons">favorite</i>
-                    </a>
-                </div>
-
-                <div class="card-content">
-                    <span class="card-title">Hamburguer Perfeito</span>
-                    <p>Como fazer um hamburguer perfeito</p>
-                    <br>
-                    <div class="valign-wrapper">
-                        <i class="material-icons">access_time</i>&nbsp;&nbsp;<span>20 min</span>
-                    </div>
-                </div>
-                <div class="card-action">
-                    <a href="#">Ver Receita</a>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
+                                        }
+                                    }
