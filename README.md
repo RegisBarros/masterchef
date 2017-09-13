@@ -1,6 +1,6 @@
 # Masterchef
 
-Aplicativo Web para publicação de receitas online
+Aplicativo Web para publicação de receitas
 
 ## Demo
 http://fiapmasterchef.azurewebsites.net/
