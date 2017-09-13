@@ -1,24 +1,113 @@
-﻿using Fiap.Masterchef.Core.Application.ViewModels;
+﻿using Fiap.Masterchef.Core;
+using Fiap.Masterchef.Core.Application.ViewModels;
 using Fiap.Masterchef.Core.Repositories;
+using Fiap.Masterchef.Infra.Data.Contexts;
+using Fiap.Masterchef.Infra.Repositories.Base;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Fiap.Masterchef.Infra.Repositories
 {
-    public class ReceitaRepository : IReceitaRepository
+    public class ReceitaRepository : Repository<Receita>, IReceitaRepository
     {
-        public IEnumerable<VitrineViewModel> ObterFavoritas()
+        public ReceitaRepository(MasterchefContext context)
         {
-            throw new System.NotImplementedException();
+            _context = context;
         }
 
-        public IEnumerable<VitrineViewModel> ObterReceitas()
+        IEnumerable<VitrineViewModel> IReceitaRepository.ObterFavoritas()
         {
-            throw new System.NotImplementedException();
+            var vitrines = (from c in _context.Categorias
+                            where c.Receitas.Any()
+                            select new VitrineViewModel()
+                            {
+                                CategoriaId = c.Id,
+                                Categoria = c.Titulo
+                            }).ToList();
+
+            foreach (var vitrine in vitrines)
+            {
+                var receitas = (from r in _context.Receitas
+                                where r.CategoriaId == vitrine.CategoriaId
+                                && r.Favorita
+                                select new ReceitaViewModel()
+                                {
+                                    ReceitaId = r.Id,
+                                    Titulo = r.Titulo,
+                                    Descricao = r.Descricao,
+                                    Foto = r.Foto,
+                                    Favorito = r.Favorita,
+                                    TempoPreparo = r.TempoPreparo
+                                }).ToList();
+
+
+                vitrine.Receitas.AddRange(receitas);
+            }
+
+            return vitrines.Where(v => v.Receitas.Any());
         }
 
-        public IEnumerable<VitrineViewModel> ObterReceitas(string termo)
+        IEnumerable<VitrineViewModel> IReceitaRepository.ObterReceitas()
         {
-            throw new System.NotImplementedException();
+            var vitrines = (from c in _context.Categorias
+                            where c.Receitas.Any()
+                            select new VitrineViewModel()
+                            {
+                                CategoriaId = c.Id,
+                                Categoria = c.Titulo
+                            }).ToList();
+
+            foreach (var vitrine in vitrines)
+            {
+                var receitas = (from r in _context.Receitas
+                                where r.CategoriaId == vitrine.CategoriaId
+                                select new ReceitaViewModel()
+                                {
+                                    ReceitaId = r.Id,
+                                    Titulo = r.Titulo,
+                                    Descricao = r.Descricao,
+                                    Foto = r.Foto,
+                                    Favorito = r.Favorita,
+                                    TempoPreparo = r.TempoPreparo
+                                }).ToList();
+
+
+                vitrine.Receitas.AddRange(receitas);
+            }
+
+            return vitrines.Where(v => v.Receitas.Any());
+        }
+
+        IEnumerable<VitrineViewModel> IReceitaRepository.ObterReceitas(string termo)
+        {
+            var vitrines = (from c in _context.Categorias
+                            where c.Receitas.Any()
+                            select new VitrineViewModel()
+                            {
+                                CategoriaId = c.Id,
+                                Categoria = c.Titulo
+                            }).ToList();
+
+            foreach (var vitrine in vitrines)
+            {
+                var receitas = (from r in _context.Receitas
+                                where r.CategoriaId == vitrine.CategoriaId
+                                && (r.Titulo.Contains(termo) || r.Tags.Contains(termo))
+                                select new ReceitaViewModel()
+                                {
+                                    ReceitaId = r.Id,
+                                    Titulo = r.Titulo,
+                                    Descricao = r.Descricao,
+                                    Foto = r.Foto,
+                                    Favorito = r.Favorita,
+                                    TempoPreparo = r.TempoPreparo
+                                }).ToList();
+
+
+                vitrine.Receitas.AddRange(receitas);
+            }
+
+            return vitrines.Where(v => v.Receitas.Any());
         }
     }
 }

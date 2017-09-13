@@ -1,24 +1,54 @@
 ﻿using Fiap.Masterchef.Core.Application.Interfaces;
 using Fiap.Masterchef.Core.Commands;
+using Fiap.Masterchef.Core.Repositories;
+using Fiap.Masterchef.Core.Services;
 using System;
 
 namespace Fiap.Masterchef.Core.Applicaton
 {
     public class ReceitaApplicationService : IReceitaApplicationService
     {
-        public void AdicionarFavoritos(Guid receitaId)
+        private readonly IReceitaRepository _receitaRepository;
+        private readonly IFotoService _fotoService;
+
+        public ReceitaApplicationService(IReceitaRepository receitaRepository, IFotoService fotoService)
         {
-            throw new NotImplementedException();
+            _receitaRepository = receitaRepository;
+            _fotoService = fotoService;
         }
 
-        public void CadastrarReceita(CadastrarReceitaCommand command)
+        public void AdicionarFavoritos(Guid receitaId)
         {
-            throw new NotImplementedException();
+            var receita = _receitaRepository.ObterPorId(receitaId);
+
+            if (receita == null)
+                throw new InvalidOperationException($"Receita {receitaId} não foi encontrado");
+
+            receita.DefinirFavorito();
+
+            _receitaRepository.Atualizar(receita);
         }
 
         public void RemoverFavoritos(Guid receitaId)
         {
-            throw new NotImplementedException();
+            var receita = _receitaRepository.ObterPorId(receitaId);
+
+            if (receita == null)
+                throw new InvalidOperationException($"Receita {receitaId} não foi encontrado");
+
+            receita.RemoverFavorito();
+
+            _receitaRepository.Atualizar(receita);
+        }
+
+        public void CadastrarReceita(CadastrarReceitaCommand command)
+        {
+            var receita = Receita.Criar(command.Titulo, command.Descricao, command.Ingredientes, command.Preparo, command.Foto,
+                command.Tags, command.TempoPreparo, command.CategoriaId);
+
+            _fotoService.Salvar(receita.Foto, command.FotoStream);
+
+            _receitaRepository.Adicionar(receita);
         }
     }
 }
