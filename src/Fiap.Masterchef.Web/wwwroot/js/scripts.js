@@ -113,6 +113,8 @@
         //    secondaryPlaceholder: 'add tags',
         //});
 
+        validarFormulario();
+
         $("#modalAddRecipes").on("click", "#salvar-receita", function () {
             $('#formReceita').submit();
         });

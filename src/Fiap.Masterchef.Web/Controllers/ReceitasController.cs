@@ -27,6 +27,20 @@ namespace Fiap.Masterchef.Web.Controllers
             return View("_Vitrine", receitas);
         }
 
+        public IActionResult Busca(string termo)
+        {
+            var receitas = _receitaRepository.ObterReceitas(termo);
+
+            return View("_Vitrine", receitas);
+        }
+
+        public IActionResult Favoritos()
+        {
+            var receitas = _receitaRepository.ObterFavoritas();
+
+            return View("_Vitrine", receitas);
+        }
+
         //[HttpPost, Route("receitas/cadastrar")]
         [HttpPost]
         public IActionResult CadastrarReceita(CadastroReceitaViewModel receita)
