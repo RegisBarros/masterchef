@@ -14,6 +14,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Fiap.Masterchef.Core\Fiap.Masterchef.Core.csproj" />
+    <ProjectReference Include="..\Fiap.Masterchef.Infra\Fiap.Masterchef.Infra.csproj" />
   </ItemGroup>
 
 </Project>
