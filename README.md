@@ -13,3 +13,11 @@ http://fiapmasterchef.azurewebsites.net/
 * Jquery
 * Materialize CSS
 * SQL Server 2016
+
+## Contribuindo
+
+* Ariel Cavalcante Cardoso
+* Guilherme Augusto de Oliveira Mendonça
+* Jéssica Nathany Carvalho Freitas
+* Reginaldo Alves de Barros
+* Wellington dos Santos Castor
