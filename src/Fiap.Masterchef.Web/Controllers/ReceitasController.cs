@@ -77,5 +77,20 @@ namespace Fiap.Masterchef.Web.Controllers
 
             return Ok();
         }
+
+        [HttpPost]
+        public IActionResult RemoverFavoritos(Guid receitaId)
+        {
+            try
+            {
+                _receitaAppService.RemoverFavoritos(receitaId);
+            }
+            catch
+            {
+                return BadRequest();
+            }
+
+            return Ok();
+        }
     }
 }

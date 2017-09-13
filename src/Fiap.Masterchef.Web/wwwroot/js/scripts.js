@@ -25,6 +25,34 @@
         });
     };
 
+    var favorito = function (e) {
+        var icon = $(e.target);
+
+        var receitaId = icon.attr("data-receita");
+
+        icon.html('<i class="material-icons" data-receita="' + receitaId + '">favorite</i>');
+
+        var btn = $(e.currentTarget);
+        btn.removeClass('add-favorito');
+        btn.addClass('remove-favorito');
+
+        $.post('receitas/AdicionarFavoritos?receitaId=' + receitaId);
+    };
+
+    var removerFavorito = function (e) {
+        var icon = $(e.target);
+
+        var receitaId = icon.attr("data-receita");
+
+        icon.html('<i class="material-icons" data-receita="' + receitaId + '">favorite_border</i>');
+
+        var btn = $(e.currentTarget);
+        btn.removeClass('remove-favorito');
+        btn.addClass('add-favorito');
+
+        $.post('receitas/RemoverFavoritos?receitaId=' + receitaId);
+    };
+
     var validarFormulario = function () {
         $('#formReceita').validate({
             submitHandler: cadastrar.bind(this),
@@ -114,6 +142,9 @@
         //});
 
         validarFormulario();
+
+        $('.container').on('click', '.add-favorito', favorito);
+        $('.container').on('click', '.remove-favorito', removerFavorito);
 
         $("#modalAddRecipes").on("click", "#salvar-receita", function () {
             $('#formReceita').submit();
