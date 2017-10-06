@@ -22,7 +22,7 @@ namespace Fiap.Masterchef.Web.Controllers
 
         public IActionResult Index()
         {
-            var receitas = _receitaRepository.ObterReceitas();
+            var receitas = _receitaRepository.ObterVitrineReceitas();
 
             return View("_Vitrine", receitas);
         }

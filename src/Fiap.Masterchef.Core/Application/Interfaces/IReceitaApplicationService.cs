@@ -5,7 +5,9 @@ namespace Fiap.Masterchef.Core.Application.Interfaces
 {
     public interface IReceitaApplicationService
     {
-        void CadastrarReceita(CadastrarReceitaCommand command);
+        Receita CadastrarReceita(CadastrarReceitaCommand command);
+
+        Receita AtualizarReceita(Guid receitaId, CadastrarReceitaCommand command);
 
         void AdicionarFavoritos(Guid receitaId);
 

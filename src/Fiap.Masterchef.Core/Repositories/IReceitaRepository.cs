@@ -1,6 +1,8 @@
 ﻿using Fiap.Masterchef.Core.Application.ViewModels;
 using Fiap.Masterchef.Core.Repositories.Base;
+using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Fiap.Masterchef.Core.Repositories
 {
@@ -8,7 +10,11 @@ namespace Fiap.Masterchef.Core.Repositories
     {
         IEnumerable<VitrineViewModel> ObterFavoritas();
 
-        IEnumerable<VitrineViewModel> ObterReceitas();
+        IEnumerable<VitrineViewModel> ObterVitrineReceitas();
+
+        Task<IEnumerable<ReceitaViewModel>> ObterReceitas();
+
+        Task<ReceitaViewModel> ObterReceita(Guid id);
 
         IEnumerable<VitrineViewModel> ObterReceitas(string termo);
     }

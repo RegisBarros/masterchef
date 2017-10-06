@@ -17,16 +17,11 @@ namespace Fiap.Masterchef.Infra.Repositories.Base
             Salvar();
         }
 
-        public void Dispose()
-        {
-            _context.Dispose();
-        }
-
         public void Atualizar(T entity)
         {
             _context.Entry(entity).State = EntityState.Modified;
-            Salvar();
 
+            Salvar();
         }
 
         public void Excluir(Func<T, bool> predicate)
@@ -35,7 +30,6 @@ namespace Fiap.Masterchef.Infra.Repositories.Base
                 .Where(predicate).ToList()
                 .ForEach(d => _context.Set<T>().Remove(d));
             Salvar();
-
         }
 
         public IQueryable<T> Pesquisar()
@@ -56,6 +50,11 @@ namespace Fiap.Masterchef.Infra.Repositories.Base
         public T ObterPorId(Guid id)
         {
             return _context.Set<T>().Find(id);
+        }
+
+        public void Dispose()
+        {
+            _context.Dispose();
         }
     }
 }

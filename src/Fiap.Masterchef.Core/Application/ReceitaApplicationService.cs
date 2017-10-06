@@ -41,7 +41,7 @@ namespace Fiap.Masterchef.Core.Applicaton
             _receitaRepository.Atualizar(receita);
         }
 
-        public void CadastrarReceita(CadastrarReceitaCommand command)
+        public Receita CadastrarReceita(CadastrarReceitaCommand command)
         {
             var receita = Receita.Criar(command.Titulo, command.Descricao, command.Ingredientes, command.Preparo, command.Foto,
                 command.Tags, command.TempoPreparo, command.CategoriaId);
@@ -49,6 +49,25 @@ namespace Fiap.Masterchef.Core.Applicaton
             _fotoService.Salvar(receita.Foto, command.FotoStream);
 
             _receitaRepository.Adicionar(receita);
+
+            return receita;
+        }
+
+        public Receita AtualizarReceita(Guid receitaId, CadastrarReceitaCommand command)
+        {
+            var receita = _receitaRepository.ObterPorId(receitaId);
+
+            if (receita == null)
+                return null;
+
+            receita.Atualizar(command.Titulo, command.Descricao, command.Ingredientes, command.Preparo, command.Foto,
+               command.Tags, command.TempoPreparo, command.CategoriaId);
+
+            _fotoService.Salvar(receita.Foto, command.FotoStream);
+
+            _receitaRepository.Adicionar(receita);
+
+            return receita;
         }
     }
 }

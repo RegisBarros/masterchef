@@ -39,6 +39,18 @@ namespace Fiap.Masterchef.Core
             Favorita = false;
         }
 
+        public void Atualizar(string titulo, string descricao, string ingredientes, string preparo, string foto, string tags, int tempoPreparo, Guid categoriaId)
+        {
+            Titulo = titulo;
+            Descricao = descricao;
+            Ingredientes = ingredientes;
+            Preparo = preparo;
+            Foto = $"{Guid.NewGuid()}_{foto}";
+            Tags = tags;
+            TempoPreparo = tempoPreparo;
+            CategoriaId = categoriaId;
+        }
+
         public static Receita Criar(string titulo, string descricao, string ingredientes, string preparo, string foto,
             string tags, int tempoPreparo, Guid categoriaId)
         {
